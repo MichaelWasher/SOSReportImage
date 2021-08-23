@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Configure the environment
+export HOST=/host
+
+mount --bind /host/run /run
+mount --bind /host/var/log /var/log
+mount --bind /host/etc/localtime /etc/localtime
+mount --bind /host/etc/machine-id /etc/machine-id
+
+# Collect Sos
+echo "Collecting SOSReport"
+sos report --batch --tmp-dir=/must-gather/
+
+echo "Synching Filesystem"
+sync
+
